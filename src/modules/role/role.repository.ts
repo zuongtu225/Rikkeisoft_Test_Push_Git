@@ -26,4 +26,8 @@ export class RoleRepository {
     const newInstance = await this.roleRepository.delete({ id: id });
     return newInstance;
   }
+  async changeStatus(id: number, body: any): Promise<any> {
+    const newInstance = await this.roleRepository.update(id, body);
+    return newInstance;
+  }
 }
