@@ -2,8 +2,8 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { Connection } from 'typeorm';
+import { UserModule } from '../user/user.module';
 import { RoleModule } from '../role/role.module';
-import { Role } from '../role/entities/role.entity';
 dotenv.config();
 
 @Module({
@@ -15,10 +15,10 @@ dotenv.config();
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DATABASE,
-      entities: [Role],
-      // entities: [__dirname + '/../**/*.entities{.ts,.js}'],
-      // synchronize: true,
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      synchronize: true,
     }),
+    UserModule,
     RoleModule,
   ],
 })

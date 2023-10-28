@@ -1,33 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Role } from './entities/role.entity';
-import { FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { IRole } from './interface/role.interface';
+import { Role } from './entities/role.entity';
 @Injectable()
 export class RoleRepository {
   constructor(
-    @InjectRepository(Role) private roleRepository: Repository<Role>,
+    @InjectRepository(Role)
+    private roleRepository: Repository<Role>,
   ) {}
   async create(body: IRole): Promise<any> {
-    return this.roleRepository.save(body);
+    const response = await this.roleRepository.save(body);
+    return response;
   }
   async findAll(): Promise<IRole[]> {
-    return this.roleRepository.find();
+    return await this.roleRepository.find({
+      relations: {
+        users: true,
+      },
+    });
   }
   async findOne(id: number): Promise<IRole> {
     const newInstance = await this.roleRepository.findOneBy({ id: id });
     return newInstance;
   }
-  async update(id: number, body: IRole): Promise<IRole> {
-    await this.roleRepository.update(id, body);
-    return this.findOne(id);
+  async update(id: number, body: IRole): Promise<UpdateResult> {
+    const response = await this.roleRepository.update(id, body);
+    return response;
   }
-  async delete(id: number): Promise<any> {
+  async delete(id: number): Promise<DeleteResult> {
     const newInstance = await this.roleRepository.delete({ id: id });
-    return newInstance;
-  }
-  async changeStatus(id: number, body: any): Promise<any> {
-    const newInstance = await this.roleRepository.update(id, body);
     return newInstance;
   }
 }
