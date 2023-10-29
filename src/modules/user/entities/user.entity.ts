@@ -1,5 +1,4 @@
-import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
-import { IProfile } from 'src/modules/profile/interface/profile.interface';
+import { Exclude } from 'class-transformer';
 import { Role } from 'src/modules/role/entities/role.entity';
 import { IRole } from 'src/modules/role/interface/role.interface';
 import {
@@ -7,31 +6,33 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column({ nullable: true })
   firstName: string;
-  @Column()
+  @Column({ nullable: true })
   lastName: string;
-  @Column()
-  password: string;
-  @Column()
-  email: string;
   @Column()
   avatar: string;
   @Column()
-  status: string;
+  status: boolean;
+  @Column({ unique: true, nullable: false })
+  email: string;
+  @Exclude()
+  @Column()
+  password: string;
 
-  @ManyToOne(() => Role, (role) => role.users)
-  role: IRole;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createAt: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updateAt: Date;
 
-  @OneToOne(() => ProfileEntity)
-  @JoinColumn()
-  profile: IProfile;
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role' })
+  role: Role;
 }

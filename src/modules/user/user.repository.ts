@@ -9,30 +9,36 @@ export class UserRepository {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-  async findByProfileId(profileId: number): Promise<User | undefined> {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.profile', 'profile')
-      .where('profile.id = :profileId', { profileId })
-      .getOne();
-  }
   async create(body: IUser): Promise<any> {
     const response = await this.userRepository.save(body);
     return response;
   }
   async findAll(): Promise<IUser[]> {
-    return await this.userRepository.find();
-  }
-  async findOne(id: number): Promise<IUser> {
-    const newInstance = await this.userRepository.findOneBy({ id: id });
-    return newInstance;
-  }
-  async update(id: number, body: IUser): Promise<UpdateResult> {
-    const response = await this.userRepository.update(id, body);
+    const response = await this.userRepository.find({
+      relations: ['role'],
+    });
     return response;
   }
-  async delete(id: number): Promise<DeleteResult> {
-    const newInstance = await this.userRepository.delete({ id: id });
-    return newInstance;
+  async findOne(id: number): Promise<IUser> {
+    const response = await this.userRepository.findOneBy({ id: id });
+    return response;
+  }
+  async findByEmail(email: string): Promise<IUser> {
+    const response = await this.userRepository.findOne({
+      where: { email },
+      relations: ['role'],
+    });
+    return response;
+  }
+
+  async updateUser(id: number, body: IUser): Promise<UpdateResult> {
+    console.log(id, body, 'response');
+    const response = await this.userRepository.update(id, body);
+    console.log(response, 'response2');
+    return response;
+  }
+  async updateStatus(id: number, body: IUser): Promise<UpdateResult> {
+    const response = await this.userRepository.update(id, body);
+    return response;
   }
 }

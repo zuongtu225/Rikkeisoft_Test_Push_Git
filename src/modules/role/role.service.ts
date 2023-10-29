@@ -20,8 +20,16 @@ export class RoleService {
   async getAllRoles(): Promise<IRole[]> {
     return await this.roleRepository.findAll();
   }
-  async getDetailRole(id: number): Promise<IRole> {
-    return await this.roleRepository.findOne(id);
+  async getDetailRole(id: number): Promise<IRole | IResponse> {
+    const response = await this.roleRepository.findOne(id);
+    if (response == null) {
+      return {
+        data: null,
+        success: false,
+        message: 'Id Category không đúng',
+      };
+    }
+    return response;
   }
   async updateRole(id: number, body: IRole): Promise<IResponse> {
     const response = await this.roleRepository.update(id, body);
