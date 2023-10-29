@@ -14,11 +14,7 @@ export class RoleRepository {
     return response;
   }
   async findAll(): Promise<IRole[]> {
-    return await this.roleRepository.find({
-      relations: {
-        users: true,
-      },
-    });
+    return await this.roleRepository.find();
   }
   async findOne(id: number): Promise<IRole> {
     const newInstance = await this.roleRepository.findOneBy({ id: id });

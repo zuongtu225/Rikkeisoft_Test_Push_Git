@@ -4,6 +4,10 @@ import * as dotenv from 'dotenv';
 import { Connection } from 'typeorm';
 import { UserModule } from '../user/user.module';
 import { RoleModule } from '../role/role.module';
+import { AuthenModule } from 'src/modules/auth/authen.module';
+import { BrandModule } from '../brand/brand.module';
+import { CategoryModule } from '../category/category.module';
+import { ProductModule } from '../product/product.module';
 dotenv.config();
 
 @Module({
@@ -20,11 +24,14 @@ dotenv.config();
     }),
     UserModule,
     RoleModule,
+    AuthenModule,
+    BrandModule,
+    CategoryModule,
+    ProductModule,
   ],
 })
 export class MysqlModule implements OnModuleInit {
   constructor(private connection: Connection) {}
-  // check thanh cong hay chua
   async onModuleInit() {
     try {
       await this.connection.query('SELECT 1');

@@ -1,43 +1,38 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { IUser } from './interface/user.interface';
 import { IResponse } from 'src/shared/interfaces/response.interface';
-import { UpdateResult } from 'typeorm';
-import { UserDto } from './dto/user.dto';
 import { UserRepository } from './user.repository';
-import { HttpStatus } from 'src/shared/interfaces/response.enum';
-
+import { Request as ExpressRequest } from 'express';
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
-  async createUser(body: UserDto): Promise<any> {
-    // const response = await this.UserRepository.create(body);
-    // if (response) {
-    //   return {
-    //     data: null,
-    //     success: true,
-    //     message: 'Tạo User thành công',
-    //   };
-    // }
-  }
-  async findByProfileId(id: number): Promise<any> {
-    const aa = await this.userRepository.findByProfileId(id);
-    if (aa) {
-      // throw new HttpException('Forbidden', HttpStatus);
-    }
-  }
+
   async getAllUsers(): Promise<IUser[]> {
     return await this.userRepository.findAll();
   }
-  async getDetailUser(id: number): Promise<IUser> {
-    return await this.userRepository.findOne(id);
+  async getDetailUser(id: number): Promise<IUser | IResponse> {
+    const response = await this.userRepository.findOne(id);
+    if (response == null) {
+      return {
+        data: null,
+        success: false,
+        message: 'Id User không đúng',
+      };
+    }
+    return response;
   }
-  async updateUser(id: number, body: IUser): Promise<IResponse> {
-    const response = await this.userRepository.update(id, body);
+  async findByEmail(email: string): Promise<IUser> {
+    const response = await this.userRepository.findByEmail(email);
+    return response;
+  }
+
+  async updateUserService(id: number, body: IUser): Promise<IResponse> {
+    const response = await this.userRepository.updateUser(id, body);
     if (response.affected == 1) {
       return {
         data: null,
         success: true,
-        message: 'Xóa User thành công',
+        message: 'Cập nhật thành công',
       };
     }
     return {
@@ -46,13 +41,13 @@ export class UserService {
       message: 'Id User không đúng',
     };
   }
-  async deleteUser(id: number): Promise<IResponse> {
-    const response = await this.userRepository.delete(id);
+  async updateStatusService(id: number, body: IUser): Promise<IResponse> {
+    const response = await this.userRepository.updateStatus(id, body);
     if (response.affected == 1) {
       return {
         data: null,
         success: true,
-        message: 'Xóa User thành công',
+        message: 'Cập nhật thành công',
       };
     }
     return {

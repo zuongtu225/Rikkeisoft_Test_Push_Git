@@ -1,7 +1,7 @@
 import { IRole } from 'src/modules/role/interface/role.interface';
 
 export interface IResponse {
-  data: object | any | IRole[];
+  data: object | IRole[] | '';
   success: boolean;
   message: string;
 }
