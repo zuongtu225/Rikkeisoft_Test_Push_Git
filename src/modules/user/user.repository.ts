@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { IUser } from './interface/user.interface';
 import { User } from './entities/user.entity';
-import { IResponse } from 'src/shared/interfaces/response.interface';
 @Injectable()
 export class UserRepository {
   constructor(

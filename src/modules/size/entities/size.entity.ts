@@ -1,10 +1,12 @@
 import { Exclude } from 'class-transformer';
 import { Product } from 'src/modules/product/entities/product.entity';
+import { ProductSize } from 'src/modules/productSize/entities/productSize.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -24,6 +26,6 @@ export class Size {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @ManyToMany(() => Product, (product) => product.sizes)
-  products: Product[];
+  @OneToMany(() => ProductSize, (item) => item.product)
+  productSizes: ProductSize[];
 }

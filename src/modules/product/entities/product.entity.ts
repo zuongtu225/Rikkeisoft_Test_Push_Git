@@ -2,6 +2,7 @@ import { Exclude } from 'class-transformer';
 import { Brand } from 'src/modules/brand/entities/brand.entity';
 import { Category } from 'src/modules/category/entities/category.entity';
 import { Image } from 'src/modules/images/entities/image.entity';
+import { ProductSize } from 'src/modules/productSize/entities/productSize.entity';
 import { Size } from 'src/modules/size/entities/size.entity';
 import {
   Column,
@@ -46,11 +47,6 @@ export class Product {
   @OneToMany(() => Image, (image) => image.productId)
   images: Image[];
 
-  @ManyToMany(() => Size)
-  @JoinTable({
-    name: 'ProductSize',
-    joinColumns: [{ name: 'productId' }],
-    inverseJoinColumns: [{ name: 'sizeId' }],
-  })
-  sizes: Size[];
+  @OneToMany(() => ProductSize, (image) => image.product)
+  productSizes: ProductSize[];
 }
