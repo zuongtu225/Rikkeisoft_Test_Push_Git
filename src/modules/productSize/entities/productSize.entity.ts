@@ -1,15 +1,23 @@
 import { Product } from 'src/modules/product/entities/product.entity';
 import { Size } from 'src/modules/size/entities/size.entity';
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'product_size' })
 export class ProductSize {
   @PrimaryGeneratedColumn()
   id: number;
-  @ManyToOne(() => Size, (item) => item.productSizes)
+
+  @ManyToOne(() => Size, (size) => size.productSizes)
   @JoinColumn({ name: 'sizeId' })
-  size: Size;
-  @ManyToOne(() => Product, (item) => item.productSizes)
+  sizeId: Size;
+
+  @ManyToOne(() => Product, (product) => product.productSizes)
   @JoinColumn({ name: 'productId' })
-  product: Product;
+  productId: Product;
 }

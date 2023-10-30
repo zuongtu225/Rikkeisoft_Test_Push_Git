@@ -29,19 +29,19 @@ const init = process.env.API_URL;
 export class ProductSizeController {
   constructor(private readonly productSizeService: ProductSizeService) {}
   @Post()
-  async createProductSize(@Body() body: ProductSizeDto): Promise<any> {
+  async createProductSize(@Body() body: ProductSizeDto): Promise<IResponse> {
     return await this.productSizeService.createProductSizeService(body);
   }
-  //   @Get()
-  //   async getAllProductSizes(): Promise<ProductSizeDto[]> {
-  //     return await this.productSizeService.getAllProductSizeService();
-  //   }
-  //   @Get('/:id')
-  //   async getDetailProductSize(
-  //     @Param('id') id: number,
-  //   ): Promise<IProductSize | IResponse> {
-  //     return await this.productSizeService.getDetailProductSize(id);
-  //   }
+  @Get()
+  async getAllProductSizes(): Promise<IProductSize[]> {
+    return await this.productSizeService.getAllProductSizeService();
+  }
+  @Get('/:id')
+  async getDetailProductSize(
+    @Param('id') id: number,
+  ): Promise<ProductSizeDto | IResponse> {
+    return await this.productSizeService.getDetailProductSize(+id);
+  }
   //   @Put('/:id')
   //   async updateProductSize(
   //     @Param('id') id: number,

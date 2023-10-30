@@ -1,10 +1,13 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
+import { IProduct } from 'src/modules/product/interface/Product.interface';
+import { ISize } from 'src/modules/size/interface/size.interface';
+//validate data request and response
 export class ProductSizeDto {
   @IsNumber()
   @IsNotEmpty()
-  product: number;
+  productId: IProduct;
 
-  @IsNumber()
+  @IsArray()
   @IsNotEmpty()
-  size: number;
+  sizeId: ISize[];
 }
