@@ -28,7 +28,6 @@ export class RoleController {
   constructor(private readonly roleService: RoleService) {}
   @Post()
   async createRole(@Body() body: RoleDto): Promise<IResponse> {
-    console.log('VVV');
     return await this.roleService.createRole(body);
   }
   @Get()

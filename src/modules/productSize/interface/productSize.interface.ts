@@ -1,4 +1,7 @@
+import { IProduct } from 'src/modules/product/interface/Product.interface';
+import { ISize } from 'src/modules/size/interface/size.interface';
+
 export class IProductSize {
-  product: number;
-  size: number;
+  productId: IProduct;
+  sizeId: ISize;
 }

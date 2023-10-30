@@ -10,8 +10,7 @@ export class BrandRepository {
     private brandRepository: Repository<Brand>,
   ) {}
   async create(body: IBrand): Promise<IBrand> {
-    const response = await this.brandRepository.save(body);
-    return response;
+    return await this.brandRepository.save(body);
   }
   async findAll(): Promise<IBrand[]> {
     const response = await this.brandRepository.find();

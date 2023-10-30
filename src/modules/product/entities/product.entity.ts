@@ -44,9 +44,9 @@ export class Product {
   @ManyToOne(() => Brand)
   brand: Brand;
 
-  @OneToMany(() => Image, (image) => image.productId)
+  @OneToMany(() => Image, (product) => product.productId)
   images: Image[];
 
-  @OneToMany(() => ProductSize, (image) => image.product)
+  @OneToMany(() => ProductSize, (product) => product.productId)
   productSizes: ProductSize[];
 }
