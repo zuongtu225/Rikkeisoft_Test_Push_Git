@@ -1,13 +1,15 @@
-import { Exclude } from 'class-transformer';
+import { Product } from 'src/modules/product/entities/product.entity';
+import { Size } from 'src/modules/size/entities/size.entity';
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity()
+@Entity({ name: 'product_size' })
 export class ProductSize {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn()
   id: number;
-  @Column()
-  productId: number;
-  @Column()
-  sizeId: number;
+  @ManyToOne(() => Size, (item) => item.productSizes)
+  @JoinColumn({ name: 'sizeId' })
+  size: Size;
+  @ManyToOne(() => Product, (item) => item.productSizes)
+  @JoinColumn({ name: 'productId' })
+  product: Product;
 }
