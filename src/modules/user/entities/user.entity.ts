@@ -17,7 +17,10 @@ export class User {
   firstName: string;
   @Column({ nullable: true })
   lastName: string;
-  @Column()
+  @Column({
+    default:
+      'https://phongreviews.com/wp-content/uploads/2022/11/avatar-facebook-mac-dinh-8.jpg',
+  })
   avatar: string;
   @Column()
   status: boolean;
@@ -27,8 +30,10 @@ export class User {
   @Column()
   password: string;
 
+  @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
+  @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 

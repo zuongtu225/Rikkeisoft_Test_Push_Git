@@ -5,10 +5,11 @@ import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { AuthenModule } from '../auth/authen.module';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 // user.module.ts
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), AuthenModule],
+  imports: [TypeOrmModule.forFeature([User]), AuthenModule, CloudinaryModule],
   controllers: [UserController],
   providers: [UserService, UserRepository],
   exports: [UserService],

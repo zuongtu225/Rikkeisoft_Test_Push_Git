@@ -46,19 +46,4 @@ export class ProductService {
       message: 'Id Product không đúng',
     };
   }
-  // async deleteProductService(id: number): Promise<IResponse> {
-  //   const response = await this.ProductRepository.deleteProduct(id);
-  //   if (response.affected == 1) {
-  //     return {
-  //       data: null,
-  //       success: true,
-  //       message: 'Xoá thành công',
-  //     };
-  //   }
-  //   return {
-  //     data: null,
-  //     success: false,
-  //     message: 'Id Product không đúng',
-  //   };
-  // }
 }

@@ -41,8 +41,8 @@ export class AuthenRepository {
       : null;
     return {
       access_token: token,
-      role: user.role.role,
-      status: user.status,
+      status: true,
+      data: user,
     };
   }
 }

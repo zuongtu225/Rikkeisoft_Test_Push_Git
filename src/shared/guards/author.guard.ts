@@ -3,6 +3,9 @@ import {
   CanActivate,
   ExecutionContext,
   BadRequestException,
+  HttpException,
+  HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
@@ -15,6 +18,9 @@ export class AuthorGuard implements CanActivate {
     if (request.user.role.role == 1) {
       return true;
     }
-    throw new BadRequestException('Bạn không có quyền truy cập trang quản trị');
+    throw new HttpException(
+      'Bạn không có quyền truy cập trang quản trị',
+      HttpStatus.FORBIDDEN,
+    );
   }
 }

@@ -12,7 +12,6 @@ import {
   UseInterceptors,
   UseGuards,
   Post,
-  Delete,
 } from '@nestjs/common';
 import { IResponse } from 'src/shared/interfaces/response.interface';
 import { AuthenGuard } from 'src/shared/guards/authen.guard';
@@ -30,21 +29,19 @@ const init = process.env.API_URL;
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
   @Post()
-  async createProduct(@Body() body: ProductDto): Promise<IResponse> {
+  async createProduct(@Body() body: ProductDto): Promise<any> {
     return await this.productService.createProductService(body);
   }
   @Get()
   async getAllProducts(): Promise<ProductDto[]> {
     return await this.productService.getAllProductService();
   }
-
   @Get('/:id')
   async getDetailProduct(
     @Param('id') id: number,
   ): Promise<IProduct | IResponse> {
     return await this.productService.getDetailProduct(id);
   }
-
   @Put('/:id')
   async updateProduct(
     @Param('id') id: number,
@@ -52,9 +49,4 @@ export class ProductController {
   ): Promise<IResponse> {
     return await this.productService.updateProductService(id, body);
   }
-
-  // @Delete('/:id')
-  // async deleteProduct(@Param('id') id: number): Promise<IResponse> {
-  //   return await this.ProductService.deleteProductService(id);
-  // }
 }
