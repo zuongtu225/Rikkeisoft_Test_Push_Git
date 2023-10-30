@@ -1,20 +1,22 @@
 import { Exclude } from 'class-transformer';
-import { User } from 'src/modules/user/entities/user.entity';
+import { Product } from 'src/modules/product/entities/product.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('roles')
-export class Role {
+@Entity({ name: 'sizes' })
+export class Size {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ unique: true, nullable: true })
-  role: number;
+  @Column({ unique: true })
+  size: string;
+  @Column({ unique: true })
+  percent: number;
+
   @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
@@ -22,6 +24,6 @@ export class Role {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @OneToMany(() => User, (user) => user.role)
-  users: User[];
+  @ManyToMany(() => Product, (product) => product.sizes)
+  products: Product[];
 }

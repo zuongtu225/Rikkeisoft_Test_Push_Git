@@ -12,13 +12,14 @@ import {
   UseInterceptors,
   Request,
   UseGuards,
+  UploadedFile,
 } from '@nestjs/common';
-import { Request as ExpressRequest } from 'express';
 import { AuthenGuard } from 'src/shared/guards/authen.guard';
 import { AuthorGuard } from 'src/shared/guards/author.guard';
-import { AuthenService } from '../auth/authen.service';
 import { CurrentUser } from './decorator/currentUser.decorator';
 import { IResponse } from 'src/shared/interfaces/response.interface';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 dotenv.config();
 const init = process.env.API_URL;
 
@@ -27,14 +28,15 @@ const init = process.env.API_URL;
 @UseInterceptors(LoggingInterceptor)
 @UseGuards(AuthenGuard)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
-
+  constructor(
+    private readonly userService: UserService,
+    private readonly cloudinaryService: CloudinaryService,
+  ) {}
   @Get()
   @UseGuards(AuthorGuard)
   async getAllUsers(): Promise<any> {
     return await this.userService.getAllUsers();
   }
-
   @Get('/:id')
   async getDetailUser(@Param('id') id: number): Promise<IUser | IResponse> {
     return await this.userService.getDetailUser(id);
@@ -43,7 +45,19 @@ export class UserController {
   async updateUser(@CurrentUser() user, @Body() body): Promise<any> {
     return await this.userService.updateUserService(user.id, body);
   }
-
+  @Put('/update-avatar')
+  @UseInterceptors(FileInterceptor('avatar'))
+  async updateAvatarUser(
+    @Request() req,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<IResponse> {
+    const response = await this.cloudinaryService.uploadSingleFile(file);
+    const body = {
+      ...req.user,
+      avatar: response.url,
+    };
+    return await this.userService.updateUserService(req.user.id, body);
+  }
   @Put('/:id')
   @UseGuards(AuthorGuard)
   async updateStatusUser(@Param('id') id: number, @Body() body): Promise<any> {

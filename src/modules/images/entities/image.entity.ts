@@ -1,20 +1,20 @@
 import { Exclude } from 'class-transformer';
-import { User } from 'src/modules/user/entities/user.entity';
+import { Product } from 'src/modules/product/entities/product.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('roles')
-export class Role {
-  @PrimaryGeneratedColumn()
+@Entity({ name: 'images' })
+export class Image {
+  @PrimaryGeneratedColumn('increment')
   id: number;
-  @Column({ unique: true, nullable: true })
-  role: number;
+  @Column()
+  src: string;
+
   @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
@@ -22,6 +22,7 @@ export class Role {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @OneToMany(() => User, (user) => user.role)
-  users: User[];
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: 'productId' })
+  productId: Product;
 }

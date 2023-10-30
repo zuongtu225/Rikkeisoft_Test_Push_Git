@@ -2,11 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { IUser } from './interface/user.interface';
 import { IResponse } from 'src/shared/interfaces/response.interface';
 import { UserRepository } from './user.repository';
-import { Request as ExpressRequest } from 'express';
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
-
   async getAllUsers(): Promise<IUser[]> {
     return await this.userRepository.findAll();
   }
@@ -25,7 +23,6 @@ export class UserService {
     const response = await this.userRepository.findByEmail(email);
     return response;
   }
-
   async updateUserService(id: number, body: IUser): Promise<IResponse> {
     const response = await this.userRepository.updateUser(id, body);
     if (response.affected == 1) {

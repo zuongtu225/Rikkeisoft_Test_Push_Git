@@ -8,6 +8,8 @@ import { AuthenModule } from 'src/modules/auth/authen.module';
 import { BrandModule } from '../brand/brand.module';
 import { CategoryModule } from '../category/category.module';
 import { ProductModule } from '../product/product.module';
+import { ImageModule } from '../images/image.module';
+import { SizeModule } from '../size/size.module';
 dotenv.config();
 
 @Module({
@@ -22,12 +24,6 @@ dotenv.config();
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    UserModule,
-    RoleModule,
-    AuthenModule,
-    BrandModule,
-    CategoryModule,
-    ProductModule,
   ],
 })
 export class MysqlModule implements OnModuleInit {

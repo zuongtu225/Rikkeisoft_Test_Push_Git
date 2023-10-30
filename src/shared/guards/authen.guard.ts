@@ -4,6 +4,7 @@ import {
   ExecutionContext,
   BadRequestException,
   ForbiddenException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from 'src/modules/user/user.service';
 import { JwtService } from '@nestjs/jwt';
@@ -19,7 +20,7 @@ export class AuthenGuard implements CanActivate {
     try {
       const authToken = request.headers.authorization.split(' ')[1];
       if (!authToken) {
-        throw new BadRequestException('Token không hợp lệ');
+        throw new UnauthorizedException('Token không hợp lệ');
       }
       const payload = await this.jwtService.verifyAsync(authToken, {
         secret: process.env.JWT_SECRET,
@@ -28,10 +29,10 @@ export class AuthenGuard implements CanActivate {
       if (!user) {
         throw new BadRequestException('Lỗi token');
       }
-      request.user = user;
+      request['user'] = user;
       return true;
     } catch (error) {
-      throw new ForbiddenException('Token không hợp lệ', error);
+      throw new UnauthorizedException('Token không hợp lệ');
     }
   }
 }
