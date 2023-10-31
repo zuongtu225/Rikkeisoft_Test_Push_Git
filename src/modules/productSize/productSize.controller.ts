@@ -17,6 +17,7 @@ import { AuthenGuard } from 'src/shared/guards/authen.guard';
 import { AuthorGuard } from 'src/shared/guards/author.guard';
 import { ProductSizeDto } from './dto/productSize.dto';
 import { IProductSize } from './interface/productSize.interface';
+import { ProductSize } from './entities/productSize.entity';
 
 dotenv.config();
 const init = process.env.API_URL;
@@ -39,7 +40,7 @@ export class ProductSizeController {
   @Get('/:id')
   async getDetailProductSize(
     @Param('id') id: number,
-  ): Promise<ProductSizeDto | IResponse> {
+  ): Promise<ProductSize | IResponse> {
     return await this.productSizeService.getDetailProductSize(+id);
   }
   //   @Put('/:id')

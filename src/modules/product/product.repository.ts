@@ -11,24 +11,20 @@ export class ProductRepository {
     private productRepository: Repository<Product>,
   ) {}
   async create(body: ProductDto): Promise<IProduct> {
-    const response = await this.productRepository.save(body);
-    return response;
+    return await this.productRepository.save(body);
   }
   async findAll(): Promise<ProductDto[]> {
-    const response = await this.productRepository.find({
+    return await this.productRepository.find({
       relations: ['category', 'brand', 'images'],
     });
-    return response;
   }
   async findOne(id: number): Promise<IProduct> {
-    const response = await this.productRepository.findOne({
+    return await this.productRepository.findOne({
       where: { id },
       relations: ['category', 'brand'],
     });
-    return response;
   }
   async updateProduct(id: number, body: IProduct): Promise<UpdateResult> {
-    const response = await this.productRepository.update(id, body);
-    return response;
+    return await this.productRepository.update(id, body);
   }
 }

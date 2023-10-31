@@ -14,9 +14,7 @@ export class UserRepository {
     return response;
   }
   async findAll(): Promise<IUser[]> {
-    const response = await this.userRepository.find({
-      relations: ['role'],
-    });
+    const response = await this.userRepository.find();
     return response;
   }
   async findOne(id: number): Promise<IUser> {

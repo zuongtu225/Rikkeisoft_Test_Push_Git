@@ -26,6 +26,8 @@ export class Size {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @OneToMany(() => ProductSize, (item) => item.productId)
+  @OneToMany(() => ProductSize, (item) => item.productId, {
+    eager: true,
+  })
   productSizes: ProductSize[];
 }
