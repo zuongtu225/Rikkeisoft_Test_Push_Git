@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { IResponse } from 'src/shared/interfaces/response.interface';
 import { ImageRepository } from './image.repository';
 import { Iimage } from './interface/image.interface';
-import { UpdateResult } from 'typeorm';
 @Injectable()
 export class ImageService {
   constructor(private readonly imageRepository: ImageRepository) {}
@@ -39,39 +38,26 @@ export class ImageService {
     return response;
   }
 
-  async updateImageService(productId: number, files: any): Promise<any> {
-    // const images = await this.imageRepository.findAllById(productId);
-    // const updateImage = images.map((item: any) => {
-    //   if (item.productId.id == productId) {
-    //     for (const image of files) {
-    //       return {
-    //         ...item,
-    //         src: image.url,
-    //       };
-    //     }
-    //   }
-    // });
-    // let response: UpdateResult;
-    // for (const item of files) {
-    //   const image = {
-    //     src: item.url,
-    //     productId,
-    //   };
-    //   let response = await this.imageRepository.updateImage(productId, image);
-    //   console.log(response, 'result count <<<');
-    // }
-    // if (response.affected == 1) {
-    //   return {
-    //     data: null,
-    //     success: true,
-    //     message: 'Cập nhật thành công',
-    //   };
-    // }
-    // return {
-    //   data: null,
-    //   success: false,
-    //   message: 'Id Product không đúng',
-    // };
+  async updateImageService(
+    id: number,
+    url: string,
+  ): Promise<IResponse | Iimage> {
+    const image = {
+      src: url,
+    };
+    const response = await this.imageRepository.updateImage(id, image);
+    if (response.affected == 1) {
+      return {
+        data: null,
+        success: true,
+        message: 'Cập nhật thành công',
+      };
+    }
+    return {
+      data: null,
+      success: false,
+      message: 'Id ảnh không đúng',
+    };
   }
   async deleteImageService(id: number): Promise<IResponse> {
     const response = await this.imageRepository.delete(id);

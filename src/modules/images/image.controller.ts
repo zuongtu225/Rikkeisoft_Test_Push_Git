@@ -42,7 +42,7 @@ export class ImageController {
     @Request() req: ExpressRequest,
     @UploadedFiles()
     files: Express.Multer.File[],
-  ): Promise<IResponse> {
+  ): Promise<any> {
     const responseCloud =
       await this.cloudinaryService.uploadMultipleFiles(files);
     return await this.imageService.createImageService(
@@ -58,20 +58,15 @@ export class ImageController {
   async getDetailImage(@Param('id') id: number): Promise<Iimage | IResponse> {
     return await this.imageService.getDetailImage(id);
   }
-  // chưa xong
   @Put('/:id')
-  @UseInterceptors(FilesInterceptor('images', 3))
+  @UseInterceptors(FileInterceptor('file'))
   async updateImage(
-    @Request() req: ExpressRequest,
-    @UploadedFiles()
-    files: Express.Multer.File[],
+    @Param('id') id: number,
+    @UploadedFile()
+    file: Express.Multer.File,
   ): Promise<any> {
-    const responseCloud =
-      await this.cloudinaryService.uploadMultipleFiles(files);
-    return await this.imageService.updateImageService(
-      +req.body.productId,
-      responseCloud,
-    );
+    const responseCloud = await this.cloudinaryService.uploadSingleFile(file);
+    return await this.imageService.updateImageService(+id, responseCloud.url);
   }
 
   @Delete('/:id')

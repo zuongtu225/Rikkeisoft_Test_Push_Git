@@ -37,10 +37,15 @@ export class UserController {
   async getAllUsers(): Promise<any> {
     return await this.userService.getAllUsers();
   }
+  @Get('/me')
+  async getDetailByUser(@CurrentUser() user): Promise<any> {
+    return await this.userService.getDetailUser(user.id);
+  }
   @Get('/:id')
   async getDetailUser(@Param('id') id: number): Promise<IUser | IResponse> {
     return await this.userService.getDetailUser(id);
   }
+
   @Put('/update')
   async updateUser(@CurrentUser() user, @Body() body): Promise<any> {
     return await this.userService.updateUserService(user.id, body);

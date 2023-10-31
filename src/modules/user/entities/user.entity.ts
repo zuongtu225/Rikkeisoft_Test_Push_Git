@@ -37,7 +37,9 @@ export class User {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @ManyToOne(() => Role)
+  @ManyToOne(() => Role, {
+    eager: true,
+  })
   @JoinColumn({ name: 'role' })
   role: Role;
 }
