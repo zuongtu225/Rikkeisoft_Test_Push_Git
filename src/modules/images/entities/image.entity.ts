@@ -13,7 +13,7 @@ export class Image {
   @PrimaryGeneratedColumn('increment')
   id: number;
   @Column()
-  src: string;
+  url: string;
 
   @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

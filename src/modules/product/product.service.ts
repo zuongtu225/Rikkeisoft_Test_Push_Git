@@ -46,4 +46,20 @@ export class ProductService {
       message: 'Id Product không đúng',
     };
   }
+
+  async deleteSizeService(id: number): Promise<IResponse> {
+    const response = await this.productRepository.deleteSize(id);
+    if (response.affected == 1) {
+      return {
+        data: null,
+        success: true,
+        message: 'Xoá thành công',
+      };
+    }
+    return {
+      data: null,
+      success: false,
+      message: 'Id product không đúng',
+    };
+  }
 }

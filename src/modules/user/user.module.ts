@@ -5,7 +5,7 @@ import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { AuthenModule } from '../auth/authen.module';
-import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { CloudinaryModule } from 'src/shared/utils/cloudinary/cloudinary.module';
 
 // user.module.ts
 @Module({

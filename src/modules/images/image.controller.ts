@@ -17,11 +17,11 @@ import {
 import { AuthenGuard } from 'src/shared/guards/authen.guard';
 import { AuthorGuard } from 'src/shared/guards/author.guard';
 import { ImageService } from './image.service';
-import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Request as ExpressRequest } from 'express';
 import { IResponse } from 'src/shared/interfaces/response.interface';
 import { Iimage } from './interface/image.interface';
+import { CloudinaryService } from 'src/shared/utils/cloudinary/cloudinary.service';
 
 dotenv.config();
 const init = process.env.API_URL;

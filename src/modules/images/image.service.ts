@@ -9,7 +9,7 @@ export class ImageService {
     let response: IResponse;
     for (const item of files) {
       const image = {
-        src: item.url,
+        url: item.url,
         productId,
       };
       response = await this.imageRepository.create(image);
@@ -37,15 +37,11 @@ export class ImageService {
     }
     return response;
   }
-
   async updateImageService(
     id: number,
     url: string,
   ): Promise<IResponse | Iimage> {
-    const image = {
-      src: url,
-    };
-    const response = await this.imageRepository.updateImage(id, image);
+    const response = await this.imageRepository.updateImage(id, { url });
     if (response.affected == 1) {
       return {
         data: null,

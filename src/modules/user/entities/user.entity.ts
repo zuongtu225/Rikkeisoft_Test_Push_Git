@@ -1,11 +1,12 @@
 import { Exclude } from 'class-transformer';
+import { Cart } from 'src/modules/cart/entities/cart.entity';
 import { Role } from 'src/modules/role/entities/role.entity';
-import { IRole } from 'src/modules/role/interface/role.interface';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -29,17 +30,17 @@ export class User {
   @Exclude()
   @Column()
   password: string;
-
   @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createAt: Date;
   @Exclude()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
-
   @ManyToOne(() => Role, {
     eager: true,
   })
   @JoinColumn({ name: 'role' })
   role: Role;
+  @OneToMany(() => Cart, (cart) => cart.userId)
+  carts: Cart[];
 }

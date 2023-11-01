@@ -1,3 +1,3 @@
 export class Iimage {
-  src: string;
+  url: string;
 }

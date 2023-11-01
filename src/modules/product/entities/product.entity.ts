@@ -3,7 +3,6 @@ import { Brand } from 'src/modules/brand/entities/brand.entity';
 import { Category } from 'src/modules/category/entities/category.entity';
 import { Image } from 'src/modules/images/entities/image.entity';
 import { ProductSize } from 'src/modules/productSize/entities/productSize.entity';
-import { Size } from 'src/modules/size/entities/size.entity';
 import {
   Column,
   Entity,
@@ -18,14 +17,19 @@ import {
 export class Product {
   @PrimaryGeneratedColumn('increment')
   id: number;
+
   @Column({ unique: true })
   title: string;
+
   @Column()
   price: number;
+
   @Column()
   stock: number;
+
   @Column()
   status: boolean;
+
   @Column({ nullable: true })
   isBestSeller: boolean;
   @Column('text')
@@ -47,6 +51,9 @@ export class Product {
   @OneToMany(() => Image, (product) => product.productId)
   images: Image[];
 
-  @OneToMany(() => ProductSize, (product) => product.productId)
+  @OneToMany(() => ProductSize, (productSize) => productSize.productId, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   productSizes: ProductSize[];
 }
