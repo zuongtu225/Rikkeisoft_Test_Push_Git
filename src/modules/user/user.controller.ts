@@ -19,7 +19,7 @@ import { AuthorGuard } from 'src/shared/guards/author.guard';
 import { CurrentUser } from './decorator/currentUser.decorator';
 import { IResponse } from 'src/shared/interfaces/response.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { CloudinaryService } from 'src/shared/utils/cloudinary/cloudinary.service';
 dotenv.config();
 const init = process.env.API_URL;
 

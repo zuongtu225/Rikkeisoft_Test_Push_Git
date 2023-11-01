@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { IProduct } from './interface/Product.interface';
 import { Product } from './entities/product.entity';
 import { ProductDto } from './dto/product.dto';
+import { IResponse } from 'src/shared/interfaces/response.interface';
 @Injectable()
 export class ProductRepository {
   constructor(
@@ -26,5 +27,8 @@ export class ProductRepository {
   }
   async updateProduct(id: number, body: IProduct): Promise<UpdateResult> {
     return await this.productRepository.update(id, body);
+  }
+  async deleteSize(id: number): Promise<DeleteResult> {
+    return await this.productRepository.delete(id);
   }
 }

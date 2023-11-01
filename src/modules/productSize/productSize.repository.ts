@@ -14,10 +14,8 @@ export class ProductSizeRepository {
   async create(body: IProductSize): Promise<ProductSize> {
     return await this.productSizeRepository.save(body);
   }
-  async findAll(): Promise<any> {
-    return await this.productSizeRepository.find({
-      relations: ['productId', 'sizeId'],
-    });
+  async findAll(): Promise<ProductSize[]> {
+    return await this.productSizeRepository.find();
   }
   async findOne(id: number): Promise<ProductSize> {
     return await this.productSizeRepository.findOne({
@@ -25,11 +23,4 @@ export class ProductSizeRepository {
       relations: ['productId', 'sizeId'],
     });
   }
-  //   async updateProductSize(
-  //     id: number,
-  //     body: IProductSize,
-  //   ): Promise<UpdateResult> {
-  //     const response = await this.productSizeRepository.update(id, body);
-  //     return response;
-  //   }
 }

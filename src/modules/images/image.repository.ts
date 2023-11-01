@@ -20,8 +20,8 @@ export class ImageRepository {
   async findOne(id: number): Promise<Iimage> {
     return await this.imageRepository.findOneBy({ id });
   }
-  async updateImage(id: number, image: Iimage): Promise<any> {
-    return await this.imageRepository.update(id, image);
+  async updateImage(id: number, url: Iimage): Promise<any> {
+    return await this.imageRepository.update(id, url);
   }
   async delete(id: number): Promise<DeleteResult> {
     return await this.imageRepository.delete(id);

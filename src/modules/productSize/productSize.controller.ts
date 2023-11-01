@@ -43,11 +43,4 @@ export class ProductSizeController {
   ): Promise<ProductSize | IResponse> {
     return await this.productSizeService.getDetailProductSize(+id);
   }
-  //   @Put('/:id')
-  //   async updateProductSize(
-  //     @Param('id') id: number,
-  //     @Body() body,
-  //   ): Promise<IResponse> {
-  //     return await this.productSizeService.updateProductSizeService(id, body);
-  //   }
 }

@@ -40,25 +40,4 @@ export class ProductSizeService {
     }
     return response;
   }
-  //   async updateProductSizeService(
-  //     id: number,
-  //     body: IProductSize,
-  //   ): Promise<IResponse> {
-  //     const response = await this.productSizeRepository.updateProductSize(
-  //       id,
-  //       body,
-  //     );
-  //     if (response.affected == 1) {
-  //       return {
-  //         data: null,
-  //         success: true,
-  //         message: 'Cập nhật thành công',
-  //       };
-  //     }
-  //     return {
-  //       data: null,
-  //       success: false,
-  //       message: 'Id ProductSize không đúng',
-  //     };
-  //   }
 }

@@ -5,7 +5,7 @@ import { ImageService } from './image.service';
 import { ImageController } from './image.controller';
 import { UserModule } from '../user/user.module';
 import { Image } from './entities/image.entity';
-import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { CloudinaryModule } from 'src/shared/utils/cloudinary/cloudinary.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Image]), UserModule, CloudinaryModule],

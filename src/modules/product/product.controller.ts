@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   UseGuards,
   Post,
+  Delete,
 } from '@nestjs/common';
 import { IResponse } from 'src/shared/interfaces/response.interface';
 import { AuthenGuard } from 'src/shared/guards/authen.guard';
@@ -48,5 +49,9 @@ export class ProductController {
     @Body() body,
   ): Promise<IResponse> {
     return await this.productService.updateProductService(id, body);
+  }
+  @Delete('/:id')
+  async deleteProduct(@Param('id') id: number): Promise<IResponse> {
+    return await this.productService.deleteSizeService(id);
   }
 }
