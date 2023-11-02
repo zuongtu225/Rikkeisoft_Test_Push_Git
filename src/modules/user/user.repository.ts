@@ -30,11 +30,9 @@ export class UserRepository {
   }
 
   async updateUser(id: number, body: IUser): Promise<UpdateResult> {
-    const response = await this.userRepository.update(id, body);
-    return response;
+    return await this.userRepository.update(id, body);
   }
   async updateStatus(id: number, body: IUser): Promise<UpdateResult> {
-    const response = await this.userRepository.update(id, body);
-    return response;
+    return await this.userRepository.update(id, body);
   }
 }

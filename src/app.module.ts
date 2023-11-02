@@ -10,6 +10,8 @@ import { ProductSizeModule } from './modules/productSize/productSize.module';
 import { BrandModule } from './modules/brand/brand.module';
 import { ImageModule } from './modules/images/image.module';
 import { CartModule } from './modules/cart/cart.module';
+import { OrderItemModule } from './modules/orderItem/orderItem.module';
+import { OrderModule } from './modules/order/order.module';
 @Module({
   imports: [
     MysqlModule,
@@ -23,6 +25,8 @@ import { CartModule } from './modules/cart/cart.module';
     BrandModule,
     ImageModule,
     CartModule,
+    OrderItemModule,
+    OrderModule,
   ],
 })
 export class AppModule {}
