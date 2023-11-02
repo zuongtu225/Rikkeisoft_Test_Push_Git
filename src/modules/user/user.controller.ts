@@ -26,18 +26,17 @@ const init = process.env.API_URL;
 @Controller(`${init}/users`)
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(LoggingInterceptor)
-@UseGuards(AuthenGuard)
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
   @Get()
-  @UseGuards(AuthorGuard)
   async getAllUsers(): Promise<any> {
     return await this.userService.getAllUsers();
   }
   @Get('/me')
+  @UseGuards(AuthenGuard)
   async getDetailByUser(@CurrentUser() user): Promise<any> {
     return await this.userService.getDetailUser(user.id);
   }
@@ -45,23 +44,21 @@ export class UserController {
   async getDetailUser(@Param('id') id: number): Promise<IUser | IResponse> {
     return await this.userService.getDetailUser(id);
   }
-
   @Put('/update')
   async updateUser(@CurrentUser() user, @Body() body): Promise<any> {
     return await this.userService.updateUserService(user.id, body);
   }
   @Put('/update-avatar')
+  @UseGuards(AuthenGuard)
   @UseInterceptors(FileInterceptor('avatar'))
   async updateAvatarUser(
     @Request() req,
     @UploadedFile() file: Express.Multer.File,
-  ): Promise<IResponse> {
+  ): Promise<any> {
     const response = await this.cloudinaryService.uploadSingleFile(file);
-    const body = {
-      ...req.user,
+    return await this.userService.updateUserService(req.user.id, {
       avatar: response.url,
-    };
-    return await this.userService.updateUserService(req.user.id, body);
+    });
   }
   @Put('/:id')
   @UseGuards(AuthorGuard)

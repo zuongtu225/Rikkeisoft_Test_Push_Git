@@ -23,7 +23,7 @@ export class UserService {
     const response = await this.userRepository.findByEmail(email);
     return response;
   }
-  async updateUserService(id: number, body: IUser): Promise<IResponse> {
+  async updateUserService(id: number, body: any): Promise<IResponse> {
     const response = await this.userRepository.updateUser(id, body);
     if (response.affected == 1) {
       return {

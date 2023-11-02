@@ -12,6 +12,7 @@ import { ImageModule } from './modules/images/image.module';
 import { CartModule } from './modules/cart/cart.module';
 import { OrderItemModule } from './modules/orderItem/orderItem.module';
 import { OrderModule } from './modules/order/order.module';
+import { AddressModule } from './modules/address/address.module';
 @Module({
   imports: [
     MysqlModule,
@@ -27,6 +28,7 @@ import { OrderModule } from './modules/order/order.module';
     CartModule,
     OrderItemModule,
     OrderModule,
+    AddressModule,
   ],
 })
 export class AppModule {}

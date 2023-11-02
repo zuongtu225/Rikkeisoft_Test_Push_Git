@@ -10,23 +10,18 @@ export class CategoryRepository {
     private categoryRepository: Repository<Category>,
   ) {}
   async create(body: ICategory): Promise<ICategory> {
-    const response = await this.categoryRepository.save(body);
-    return response;
+    return await this.categoryRepository.save(body);
   }
   async findAll(): Promise<ICategory[]> {
-    const response = await this.categoryRepository.find();
-    return response;
+    return await this.categoryRepository.find();
   }
   async findOne(id: number): Promise<ICategory> {
-    const response = await this.categoryRepository.findOneBy({ id });
-    return response;
+    return await this.categoryRepository.findOneBy({ id });
   }
   async updateCategory(id: number, body: ICategory): Promise<UpdateResult> {
-    const response = await this.categoryRepository.update(id, body);
-    return response;
+    return await this.categoryRepository.update(id, body);
   }
   async deleteCategory(id: number): Promise<DeleteResult> {
-    const response = await this.categoryRepository.delete(id);
-    return response;
+    return await this.categoryRepository.delete(id);
   }
 }
